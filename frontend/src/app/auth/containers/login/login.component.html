@@ -1,0 +1,16 @@
+<form [formGroup]="loginForm" (ngSubmit)="login()" class="form-signin">
+  <div>
+    <input formControlName="u_email" type="email" placeholder="Email address" required autofocus>
+    <label for="inputEmail">Email address</label>
+  </div>
+
+  <div>
+    <input formControlName="u_password" type="password" placeholder="Password" required>
+    <label for="inputPassword">Password</label>
+  </div>
+
+
+  <button type="submit">Sign in</button>
+  <hr class="my-4">
+  <button (click)="signInWithGoogle()" type="submit"><i class="fab fa-google mr-2"></i> Sign in with Google</button>
+</form>
