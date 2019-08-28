@@ -1,6 +1,8 @@
 const express = require("express");
 const authClassRoutes = require('./auth.routes');
 const randomRoutes = require('./random.routes');
+const studentRoutes = require('./student.routes');
+
 const passport = require('passport');
 const router = express.Router();
 
@@ -9,5 +11,6 @@ require('./../config/passport.config');
 
 router.use("/auth", authClassRoutes);
 router.use("/random",passport.authenticate('jwt', { session: false }) ,randomRoutes);
+router.use("/student",studentRoutes);
 
 module.exports = router;

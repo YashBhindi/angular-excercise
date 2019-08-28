@@ -13,15 +13,15 @@ export class AppComponent {
 
   ngOnInit() {
     if (!!this.authService.getJwtToken()) {
-      this.route.navigateByUrl('/secret-random-number');
+      
     }
   }
 
   changeOfRoutes() {
-    if (this.route.url === '/' || this.route.url === '/login') {
-      this.showBar = false;
-    } else {
+    if (!!this.authService.getJwtToken()) {
       this.showBar = true;
+    } else {
+      this.showBar = false;
     }
   }
 }

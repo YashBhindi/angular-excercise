@@ -4,9 +4,14 @@ import { LoginComponent } from './auth/containers/login/login.component';
 import { RegisterComponent } from './auth/containers/register/register.component';
 
 import { RandomGuard } from './auth/guards/random.guard';
+import { HomeComponent } from './base/components/home/home.component';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: '/login' },
+  // { path: '', pathMatch: 'full', redirectTo: '/home' },
+  {
+    path: 'home',
+    loadChildren : './base/base.module#BaseModule'
+  },
   {
     path: 'login',
     component : LoginComponent
@@ -20,12 +25,18 @@ const routes: Routes = [
     loadChildren: './random/random.module#RandomModule',
     canActivate: [RandomGuard],
     canLoad: [RandomGuard]
+  },
+  {
+    path: 'student',
+    loadChildren: './student/student.module#StudentModule',
+    canActivate: [RandomGuard],
+    canLoad: [RandomGuard]
   }
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
   ],
   exports: [RouterModule],
   declarations: []

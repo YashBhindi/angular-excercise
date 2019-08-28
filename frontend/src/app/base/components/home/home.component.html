@@ -1,0 +1,35 @@
+<form [formGroup]="carousalForm">
+  <div class="form-group">
+    <select formControlName="countries" (change)="onChangeCountry($event)">
+      <option [value]="country.name" *ngFor="let country of countryData ;let i = index"> {{country.name}}</option>
+    </select>
+  </div>
+  <div class="dropdown">
+      <button type="button" class="btn btn-primary dropdown-toggle" style="margin-left: 20px;" data-toggle="dropdown">
+      {{selectedListOfState[selectedCityIndex]?.name}}
+      </button>
+      <div class="dropdown-menu">
+        <h5 class="dropdown-header">Select state</h5>
+        <a *ngFor="let state of selectedListOfState; let i = index" data-target="#carouselExampleIndicators" [attr.data-slide-to] ="i"  class="dropdown-item"  (click)="onChangeCity(i)" >{{state.name}}</a>
+      </div>
+    </div>
+ </form>
+ <div id="carouselExampleIndicators" class="carousel slide w-50 ml-5" data-interval="false" data-ride="carousel">
+  <ul class="carousel-indicators">
+    <li *ngFor="let city of selectedListOfState ; let i=index" data-target="#carouselExampleIndicators"
+      [attr.data-slide-to]="i" (click)="setIndex(i)" [class.active]="selectedCityIndex === i"></li>
+  </ul>
+  <div class="carousel-inner">
+    <div *ngFor="let city of selectedListOfState ; let i=index " [ngClass]="i === 0  ? 'carousel-item active' : 'carousel-item'">
+      <img class="d-block w-100" [src]="city.image" alt="First slide">
+    </div>
+  </div>
+  <a class="carousel-control-prev" (click)="gotoPrevious()" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" (click)="gotoNext()" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+ </div>

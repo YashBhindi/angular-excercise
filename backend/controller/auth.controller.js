@@ -19,7 +19,7 @@ const {
 } = require('../utils/schemas');
 class AuthController {
 
-    static async signIn(req, res) {
+    static async signIn(req, res ,next) {
         validator(req.body, loginSchema, async function (error, value) {
             if (error) {
                 next(error);
@@ -127,12 +127,12 @@ class AuthController {
             if (error) {
                 next(error);
             } else {
-                const { u_name, u_email, u_password, u_role } = req.body;
+                const { u_name, u_email, u_password} = req.body;
                 let userData = {
                     u_email: u_email,
                     u_name: u_name,
                     u_password: u_password,
-                    u_role: u_role
+                    u_role : 'ADMIN'
                 }
                 const isUserExists = await getUserByEmail(u_email);
                 if (!isUserExists) {

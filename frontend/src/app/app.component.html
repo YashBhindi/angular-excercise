@@ -1,10 +1,10 @@
-<div *ngIf="!showBar" class="mx-auto">
-    <router-outlet (activate)="changeOfRoutes()"></router-outlet>
-</div>
-<div *ngIf="showBar">
+<div>
     <app-headerbar></app-headerbar>
-    <app-sidebar></app-sidebar>
+    <div *ngIf="showBar">
+        <app-sidebar></app-sidebar>
+    </div>
     <div id="wrapper">
         <router-outlet (activate)="changeOfRoutes()"></router-outlet>
     </div>
 </div>
+

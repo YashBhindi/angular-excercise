@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <div>
+    <h5 class="card-header info-color white-text text-center py-4" style="color: #757575;">
+      <strong>{{pageTitle}}</strong>
+      <br>
+    </h5>
+    <form [formGroup]="studentForm" style="color: #757575;" (ngSubmit)="onSubmit()">
+      <br>
+      <div class="form-group">
+        <div>
+          <input type="text" formControlName="firstname" class="form-control" placeholder="Enter First Name">
+        </div>
+      </div>
+      <br>
+      <div class="form-group">
+        <div>
+          <input type="text" formControlName="lastname" class="form-control" placeholder="Enter Last Name">
+        </div>
+      </div>
+      <br>
+      <div class="form-group">
+        <div>
+          <input type="number" formControlName="age" class="form-control" placeholder="Enter Age">
+        </div>
+      </div>
+      <div class="form-group">
+        <div>
+          <input type="text" formControlName="email" class="form-control" placeholder="Enter Email">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div *ngIf="editFlag==true" class="col-sm-offset-2 col-sm-10">
+          <button [disabled]="studentForm.invalid" type="submit" class="btn btn-info my-4 btn-block">Update</button>
+        </div>
+        <div *ngIf="editFlag==false" class="col-sm-offset-2 col-sm-10">
+          <button [disabled]="studentForm.invalid" type="submit" class="btn btn-info my-4 btn-block">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</body>
+
+</html>

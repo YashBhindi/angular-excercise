@@ -1,0 +1,63 @@
+<form [formGroup]="sampleForm">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" formControlName="name" id="name" placeholder="Name">
+      <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+        <small *ngIf="name.errors.minlength">Atleast 3 character required</small>
+        <small *ngIf="name.errors.required">Name field is required</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputEmail4">Email</label>
+      <input type="email" class="form-control" formControlName="email" id="inputEmail4" placeholder="Email">
+      <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+        <small *ngIf="email.errors.email">please enter the valid email</small>
+        <small *ngIf="email.errors.required">Email field is required</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="phone">Mobile number:</label>
+      <input type="tel" id="phone" class="form-control" name="phone" formControlName="mobileNo" placeholder="mobile no">
+      <div *ngIf="mobileNo.invalid && (mobileNo.dirty || mobileNo.touched)" class="alert alert-danger">
+        <small *ngIf="mobileNo.errors.pattern">please enter valid mobile no</small>
+        <small *ngIf="mobileNo.errors.required">Mobile no field is required</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputPassword4">Password</label>
+      <input type="password" class="form-control" formControlName="password" id="inputPassword4" placeholder="Password">
+      <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+        <small *ngIf="password.errors.pattern">should contain one upper case, one digit and one special characters and at
+          least 8 character long</small>
+        <small *ngIf="password.errors.required">Password field is required</small>
+      </div>
+    </div>
+  
+  
+    <div class="form-group">
+      <label for="inputPassword4">Confirm Password</label>
+      <input type="password" class="form-control" formControlName="confPassword" placeholder="Confirm Password">
+      <small *ngIf="sampleForm.errors">Confirm Password {{sampleForm.errors.password}}</small>
+      <div *ngIf="confPassword.invalid && (confPassword.dirty || confPassword.touched)" class="alert alert-danger"> -->
+        <!-- <small *ngIf="confPassword.errors.pattern">should contain one upper case, one digit and one special characters and at
+          least 8 character long</small> -->
+        <small *ngIf="confPassword.errors.required">Password field is required</small>
+  
+  
+      </div>
+    </div>
+  
+  
+    <button type="submit" class="btn btn-primary" [disabled]="sampleForm.invalid" (click)="onSubmit()">Register</button>
+    <div class="form-group">
+      <div *ngIf="sampleForm.valid" class="alert alert-danger">
+        <label for="formData">FormData</label>
+        <div>{{name.value}}</div>
+        <div>{{password.value}}</div>
+        <div>{{email.value}}</div>
+        <div>{{mobileNo.value}}</div>
+      </div>
+    </div>
+    <button (click)="registerWithWithGoogle()" type="submit"><i class="fab fa-google mr-2"></i> Sign in with Google</button>
+
+  </form>

@@ -37,19 +37,19 @@ export class LoginComponent implements OnInit {
       }
     )
       .subscribe(success => {
-        if (success) {
-          this.router.navigate(['/secret-random-number']);
-        }
+        console.log(success);
+        this.router.navigate(['/secret-random-number']);
       });
   }
 
   signInWithGoogle() {
     this.googleAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then((userData) => {
       if (userData) {
-
+        this.authService.loginWithGoogle(userData).subscribe(success => {
+          this.router.navigate(['/secret-random-number']);
+        });
       }
     });
   }
-
 
 }

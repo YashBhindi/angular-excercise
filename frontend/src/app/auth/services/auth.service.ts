@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { of, Observable } from 'rxjs';
+import { of, Observable, BehaviorSubject } from 'rxjs';
 import { catchError, mapTo, tap } from 'rxjs/operators';
 import { config } from './../../config';
 import { Tokens } from '../models/tokens';
@@ -13,25 +13,71 @@ export class MyAuthService {
   private readonly JWT_TOKEN = 'JWT_TOKEN';
   private readonly REFRESH_TOKEN = 'REFRESH_TOKEN';
   private loggedUser: string;
-
-  constructor(private http: HttpClient) {}
+  isLoginSubject = new BehaviorSubject<boolean>(this.isLoggedIn());
+  constructor(private http: HttpClient) { }
 
   login(user: { u_email: string, u_password: string }): Observable<boolean> {
     return this.http.post<any>(`${config.apiUrl}/auth/login`, user)
       .pipe(
-        tap(tokens => this.doLoginUser(user.u_email, tokens)),
+        tap(tokens => {
+          this.isLoginSubject.next(true);
+          this.doLoginUser(user.u_email, tokens);
+        }),
         mapTo(true),
         catchError(error => {
-          alert(error.error);
           return of(false);
         }));
   }
+
+  registerWithGoogle(payload): Observable<boolean> {
+    return this.http.post<any>(`${config.apiUrl}/auth/register-with-google`, payload)
+      .pipe(
+        tap(tokens => {
+          this.isLoginSubject.next(true);
+          this.doLoginUser(payload.email, tokens);
+        }),
+        mapTo(true),
+        catchError(error => {
+          return of(false);
+        }));
+  }
+
+  loginWithGoogle(payload): Observable<boolean> {
+    return this.http.post<any>(`${config.apiUrl}/auth/login-with-google`, payload)
+      .pipe(
+        tap(tokens => {
+          this.isLoginSubject.next(true);
+          this.doLoginUser(payload.email, tokens);
+        }),
+        mapTo(true),
+        catchError(error => {
+          return of(false);
+        }));
+  }
+
+  register(user): Observable<boolean> {
+    return this.http.post<any>(`${config.apiUrl}/auth/register`, user)
+      .pipe(
+        tap(tokens => {
+          this.isLoginSubject.next(true);
+          this.doLoginUser(user.u_email, tokens);
+        }),
+        mapTo(true),
+        catchError(error => {
+          return of(false);
+        }));
+  }
+
+
 
   logout() {
     return this.http.post<any>(`${config.apiUrl}/auth/logout`, {
       'refreshToken': this.getRefreshToken()
     }).pipe(
-      tap(() => this.doLogoutUser()),
+      tap(() => {
+        this.isLoginSubject.next(false);
+        this.doLogoutUser();
+      }),
       mapTo(true),
       catchError(error => {
         alert(error.error);
@@ -41,6 +87,11 @@ export class MyAuthService {
 
   isLoggedIn() {
     return !!this.getJwtToken();
+  }
+
+
+  isUserLoggedIn(): Observable<boolean> {
+    return this.isLoginSubject.asObservable();
   }
 
   refreshToken() {

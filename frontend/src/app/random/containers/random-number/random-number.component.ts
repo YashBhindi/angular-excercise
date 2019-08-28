@@ -19,13 +19,6 @@ export class RandomNumberComponent implements OnInit {
     this.randomNumber = this.random.getRandomNumber();
   }
 
-  logout() {
-    this.authService.logout()
-      .subscribe(success => {
-        if (success) {
-          this.router.navigate(['/login']);
-        }
-      });
-  }
+ 
 
 }

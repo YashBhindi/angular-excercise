@@ -8,6 +8,7 @@ import { RandomRoutingModule } from './random.routing.module';
   imports: [
     CommonModule,
     RandomRoutingModule
-  ]
+  ],
+  exports : [RandomNumberComponent]
 })
 export class RandomModule { }

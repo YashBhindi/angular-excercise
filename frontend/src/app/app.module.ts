@@ -7,7 +7,8 @@ import { AppRoutingModule } from './app.routing.module';
 import { BaseModule } from './base/base.module';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthModule } from './auth/auth.module';
-
+import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { ButtonsModule } from 'ngx-bootstrap';
 @NgModule({
   declarations: [
     AppComponent
@@ -18,7 +19,9 @@ import { AuthModule } from './auth/auth.module';
     AppRoutingModule,
     BaseModule,
     HttpClientModule,
-    AuthModule
+    AuthModule,
+    CarouselModule.forRoot(),
+    ButtonsModule.forRoot()
   ],
   providers: [HttpClientModule],
   bootstrap: [AppComponent]

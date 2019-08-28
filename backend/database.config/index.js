@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const userClass = require('./user.model');
-
+const studentClass = require('./student.model');
 require('dotenv').config();
 
 
@@ -28,10 +28,12 @@ const sequelize = new Sequelize("node_demo", "postgres", "argusadmin", {
 sequelize.sync({ force: false })
     .then(() => {
 
-});
+    });
 
 const userModel = userClass(sequelize, Sequelize);
+const studentModel = studentClass(sequelize, Sequelize);
 
-module.exports={
-    userModel
+module.exports = {
+    userModel,
+    studentModel
 }
